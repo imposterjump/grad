@@ -1,0 +1,28 @@
+# Ignore everything
+**
+
+!.gitignore
+
+# Allow text, audio, video, brain directories
+!text/
+!audio/
+!video/
+!brain/
+
+# Allow their models subdirectories
+!text/models/
+!audio/models/
+!video/models/
+!brain/models/
+
+# Ignore everything inside the models subdirectories
+text/models/**
+audio/models/**
+video/models/**
+brain/models/**
+
+# Allow only Jupyter Notebook files inside models folders
+!text/models/**/*.ipynb
+!audio/models/**/*.ipynb
+!video/models/**/*.ipynb
+!brain/models/**/*.ipynb
