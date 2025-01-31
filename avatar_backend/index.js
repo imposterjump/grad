@@ -19,6 +19,7 @@ const __dirname = dirname(__filename);
 dotenv.config();
 
 const elevenLabsApiKey = process.env.ELEVEN_LABS_API_KEY;
+const modelsApiLink = process.env.MODELS_API_LINK;
 const voiceId = "Xb7hH8MSUJpSbSDYk0k2";
 
 const app = express();
@@ -43,8 +44,11 @@ const lipSyncProcess = async (message) => {
       .on("error", (err) => {
         console.error("Error during conversion:", err.message);
       })
-
       .save(outputWaveFile);
+
+      // generate json lips movements from the wav file
+
+
   } catch (error) {
     console.error(
       `Error during lip sync process for message: ${message}`,
@@ -72,9 +76,25 @@ app.post("/chat", async (req, res) => {
     return;
   }
 
+  const data = await fetch(`${modelsApiLink}/predict/text`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ sentence: userMessage }),
+  })
+    .then((response) => response.json())
+    .catch((error) => console.error("Error:", error));
+
+  console.log(data);
+
+  const emotionDetected = data.final_prediction;
+
+  // call the generative ai 
+
   let messages = [
     {
-      text: userMessage,
+      text: emotionDetected,
       facialExpression: "smile",
       animation: "Talking_1",
     },

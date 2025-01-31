@@ -5,8 +5,10 @@ from flask import Flask, request, jsonify
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from collections import Counter 
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000"])
 
 
 def load_all_models(data_type):
