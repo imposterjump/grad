@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"])
 
 
-def load_all_models(data_type):
+def load_text_models(data_type):
     MODELS_DIR = "../models/" + data_type + "/exported_files/"
     models = {}
 
@@ -44,7 +44,7 @@ def load_all_models(data_type):
 @app.route("/predict/text", methods=["POST"])
 def predict():
     try:
-        models_dict = load_all_models("text")
+        models_dict = load_text_models("text")
 
         input_data = request.get_json()
         sentence = input_data["sentence"]
