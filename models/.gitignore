@@ -16,10 +16,10 @@
 !brain/models/
 
 # Allow their exported_files subdirectories
-!text/models/exported_files
-!audio/models/exported_files
-!video/models/exported_files
-!brain/models/exported_files
+!text/exported_files
+!audio/exported_files
+!video/exported_files
+!brain/exported_files
 
 # Ignore everything inside the models subdirectories
 text/models/**
