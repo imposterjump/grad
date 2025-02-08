@@ -1,3 +1,8 @@
-body{
+body {
   background-color: #bbbbbb;
 }
+
+.form-control {
+  border: 1px solid rgb(153, 153, 153);
+}
+

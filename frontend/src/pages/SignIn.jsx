@@ -28,14 +28,21 @@ const SignIn = () => {
                 id="exampleInputPassword1"
               />
             </div>
-            <p className="text-end">
-              <Link class="link-opacity-100" to="/sign_up">
-                Create an account
-              </Link>
-            </p>
-            <button type="submit" className="btn btn-primary w-100">
+            <div class="d-flex justify-content-between">
+              <p>
+                <Link class="link-opacity-100" to="/forget_password">
+                  Forget Password
+                </Link>
+              </p>
+              <p>
+                <Link class="link-opacity-100" to="/sign_up">
+                  Create an account
+                </Link>
+              </p>
+            </div>
+            <Link type="submit" className="btn btn-primary w-100" to="/home">
               Sign In
-            </button>
+            </Link>
           </form>
         </div>
       </div>
