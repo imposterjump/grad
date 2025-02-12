@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { ReactMic } from "react-mic";
+// import { ReactMic } from "react-mic";
 import { useChat } from "../hooks/useChat";
 
 export const UI = ({ hidden, ...props }) => {

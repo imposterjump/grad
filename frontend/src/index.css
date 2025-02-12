@@ -12,13 +12,12 @@
   height: 100vh;
 }
 
-body.female {
-  margin: 0;
+.female {
   background-color: #faaca8;
   background-image: linear-gradient(19deg, #faaca8 0%, #ddd6f3 100%);
 }
 
-body.female .button {
+.female .button {
   pointer-events: auto;
   background-color: #ec4899;
   color: white;
@@ -27,16 +26,16 @@ body.female .button {
   transition: background-color 0.2s ease-in-out;
 }
 
-body.female .button:hover {
+.female .button:hover {
   background-color: #95004a;
 }
 
-body.female .icon {
+.female .icon {
   width: 1.5rem;
   height: 1.5rem;
 }
 
-body.female .button2 {
+.female .button2 {
   background-color: #ec4899;
   color: white;
   padding: 1rem 2.5rem;
@@ -46,22 +45,22 @@ body.female .button2 {
   transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
-body.female .button2:hover {
+.female .button2:hover {
   background-color: #db2777;
 }
 
-body.female .button2:disabled {
+.female .button2:disabled {
   cursor: not-allowed;
   opacity: 0.3;
 }
 
-body.male {
+.male {
   margin: 0;
   background-color: #3a7bd5;
   background-image: linear-gradient(19deg, #3a7bd5 0%, #a8d0e6 100%);
 }
 
-body.male .button {
+.male .button {
   pointer-events: auto;
   background-color: #2563eb;
   color: white;
@@ -70,16 +69,16 @@ body.male .button {
   transition: background-color 0.2s ease-in-out;
 }
 
-body.male .button:hover {
+.male .button:hover {
   background-color: #1e40af;
 }
 
-body.male .icon {
+.male .icon {
   width: 1.5rem;
   height: 1.5rem;
 }
 
-body.male .button2 {
+.male .button2 {
   background-color: #2563eb;
   color: white;
   padding: 1rem 2.5rem;
@@ -89,11 +88,11 @@ body.male .button2 {
   transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
-body.male .button2:hover {
+.male .button2:hover {
   background-color: #1e40af;
 }
 
-body.male .button2:disabled {
+.male .button2:disabled {
   cursor: not-allowed;
   opacity: 0.3;
 }
