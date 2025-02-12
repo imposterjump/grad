@@ -108,7 +108,7 @@ const Index = () => {
             className="flex items-center justify-between p-6 lg:px-8"
           >
             <div className="flex lg:flex-1">
-              <Link href="#" className="-m-1.5 p-1.5">
+              <Link to="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <img
                   alt=""
@@ -131,7 +131,7 @@ const Index = () => {
               {navigation.map((item) => (
                 <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className="text-sm/6 font-semibold text-gray-900"
                 >
                   {item.name}
@@ -139,7 +139,7 @@ const Index = () => {
               ))}
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-              <Link href="#" className="text-sm/6 font-semibold text-gray-900">
+              <Link to="/sign_in" className="text-sm/6 font-semibold text-gray-900">
                 Log in <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
@@ -152,7 +152,7 @@ const Index = () => {
             <div className="fixed inset-0 z-50" />
             <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
               <div className="flex items-center justify-between">
-                <Link href="#" className="-m-1.5 p-1.5">
+                <Link to="#" className="-m-1.5 p-1.5">
                   <span className="sr-only">Your Company</span>
                   <img
                     alt=""
@@ -175,7 +175,7 @@ const Index = () => {
                     {navigation.map((item) => (
                       <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                       >
                         {item.name}
@@ -184,7 +184,7 @@ const Index = () => {
                   </div>
                   <div className="py-6">
                     <Link
-                      href="#"
+                      to="#"
                       className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                     >
                       Log in
@@ -213,7 +213,7 @@ const Index = () => {
             <div className="hidden sm:mb-8 sm:flex sm:justify-center">
               <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                 Announcing our next round of funding.{" "}
-                <Link href="#" className="font-semibold text-indigo-600">
+                <Link to="#" className="font-semibold text-indigo-600">
                   <span aria-hidden="true" className="absolute inset-0" />
                   Read more <span aria-hidden="true">&rarr;</span>
                 </Link>
@@ -229,13 +229,13 @@ const Index = () => {
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Link
-                  href="#"
+                  to="#"
                   className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Get started
                 </Link>
                 <Link
-                  href="#"
+                  to="#"
                   className="text-sm/6 font-semibold text-gray-900"
                 >
                   Learn more <span aria-hidden="true">→</span>
@@ -302,7 +302,7 @@ const Index = () => {
           <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base/7 font-semibold text-white sm:grid-cols-2 md:flex lg:gap-x-10">
               {links.map((link) => (
-                <Link key={link.name} href={link.href}>
+                <Link key={link.name} to={link.href}>
                   {link.name} <span aria-hidden="true">&rarr;</span>
                 </Link>
               ))}
@@ -612,7 +612,7 @@ const Index = () => {
               <ul className="mt-8 flex gap-6">
                 <li>
                   <Link
-                    href="#"
+                    to="#"
                     rel="noreferrer"
                     target="_blank"
                     className="text-gray-700 transition hover:opacity-75"
@@ -636,7 +636,7 @@ const Index = () => {
 
                 <li>
                   <Link
-                    href="#"
+                    to="#"
                     rel="noreferrer"
                     target="_blank"
                     className="text-gray-700 transition hover:opacity-75"
@@ -660,7 +660,7 @@ const Index = () => {
 
                 <li>
                   <Link
-                    href="#"
+                    to="#"
                     rel="noreferrer"
                     target="_blank"
                     className="text-gray-700 transition hover:opacity-75"
@@ -680,7 +680,7 @@ const Index = () => {
 
                 <li>
                   <Link
-                    href="#"
+                    to="#"
                     rel="noreferrer"
                     target="_blank"
                     className="text-gray-700 transition hover:opacity-75"
@@ -704,7 +704,7 @@ const Index = () => {
 
                 <li>
                   <Link
-                    href="#"
+                    to="#"
                     rel="noreferrer"
                     target="_blank"
                     className="text-gray-700 transition hover:opacity-75"
@@ -735,7 +735,7 @@ const Index = () => {
                 <ul className="mt-6 space-y-4 text-sm">
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -745,7 +745,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -755,7 +755,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -765,7 +765,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -775,7 +775,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -791,7 +791,7 @@ const Index = () => {
                 <ul className="mt-6 space-y-4 text-sm">
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -801,7 +801,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -811,7 +811,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -827,7 +827,7 @@ const Index = () => {
                 <ul className="mt-6 space-y-4 text-sm">
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -837,7 +837,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -847,7 +847,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -863,7 +863,7 @@ const Index = () => {
                 <ul className="mt-6 space-y-4 text-sm">
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -873,7 +873,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -883,7 +883,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       {" "}
@@ -893,7 +893,7 @@ const Index = () => {
 
                   <li>
                     <Link
-                      href="#"
+                      to="#"
                       className="text-gray-700 transition hover:opacity-75"
                     >
                       Hiring-3 Statistics
