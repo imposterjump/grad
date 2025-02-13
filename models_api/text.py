@@ -4,12 +4,10 @@ import numpy as np
 from flask import Flask, request, jsonify
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-from collections import Counter 
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"])
-
 
 def load_all_models(data_type):
     MODELS_DIR = "../models/" + data_type + "/exported_files/"
@@ -46,12 +44,20 @@ def predict():
     try:
         models_dict = load_all_models("text")
 
+        # Define model weights based on accuracy or importance
+        model_weights = {
+            "cnn": 0.25,  # Replace with actual model names and weights
+            "cnn_with_resnet": 0.25,
+            "crnn": 0.25,
+            "rnn": 0.25
+        }
+
         input_data = request.get_json()
         sentence = input_data["sentence"]
 
         predictions = {}
-        all_labels = []
-        
+        weighted_votes = {}
+
         for model_name, data in models_dict.items():
             tokenizer = data["tokenizer"]
             label_encoder = data["label_encoder"]
@@ -62,13 +68,14 @@ def predict():
 
             prediction = model.predict(padded_sequence)
             predicted_class = np.argmax(prediction, axis=1)
-
             predicted_label = label_encoder.inverse_transform(predicted_class)[0]
-            all_labels.append(predicted_label)
 
             predictions[model_name] = predicted_label
 
-        final_prediction = Counter(all_labels).most_common(1)[0][0]
+            weight = model_weights.get(model_name, 1)  # Default weight is 1 if not specified
+            weighted_votes[predicted_label] = weighted_votes.get(predicted_label, 0) + weight
+
+        final_prediction = max(weighted_votes, key=weighted_votes.get)
 
         return jsonify({
             'predictions': predictions,
@@ -84,4 +91,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5001)
+    app.run(host="127.0.0.1", port=5001, debug=True)
