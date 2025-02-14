@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Home from "./pages/Home";
-import Avatar from "./pages/Avatar";
+import Home from "./pages/user/Home";
+import Avatar from "./pages/user/Avatar";
 import NotFound from "./pages/NotFound";
 
 function App() {

@@ -48,7 +48,17 @@ const lipSyncProcess = async (message) => {
   }
 };
 
-export const handleChat = async (req, res) => {
+
+
+
+
+
+
+
+
+
+
+export const handleText = async (req, res) => {
   const userMessage = req.body.message;
 
   if (!userMessage) {
