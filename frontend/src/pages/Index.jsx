@@ -33,33 +33,33 @@ const people = [
   {
     name: "Dr. Alaa Hamdy",
     role: "Supervisor",
-    imageUrl: "../../public/img/alaa.png",
+    imageUrl: "/img/alaa.png",
   },
   {
     name: "Eng. Nada Nofal",
     role: "Teacher Instructor",
-    imageUrl: "../../public/img/nada.png",
+    imageUrl: "/img/nada.png",
   },
   {
     name: "Farid Ramy",
     role: "2021 / 01461",
-    imageUrl: "../../public/img/farid.png",
+    imageUrl: "/img/farid.PNG",
   },
   {
     name: "Marina Rizkallah",
     role: "2021 / 03724",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    imageUrl:"/img/marina.png",
+
   },
   {
     name: "Moufid Magdy",
     role: "2021 / 00872",
-    imageUrl: "../../public/img/moufid.png",
+    imageUrl: "/img/moufid.png",
   },
   {
     name: "Bassem Mohamed",
     role: "2021 / 08471",
-    imageUrl: "../../public/img/bassem.png",
+    imageUrl: "/img/bassem.png",
   },
 ];
 
@@ -106,7 +106,7 @@ const Index = () => {
                 <span className="sr-only">Your Company</span>
                 <img
                   alt=""
-                  src="../../public/img/rina.png"
+                  src="/img/rina.png"
                   className="h-16 w-auto"
                 />
               </Link>
@@ -549,7 +549,7 @@ const Index = () => {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div>
               <div className="text-teal-600 w-64">
-                <img src="../../public/img/logo.png" alt="logo" />
+                <img src="/img/logo.png" alt="logo" />
               </div>
 
               <p className="mt-4 max-w-xs text-gray-500">
