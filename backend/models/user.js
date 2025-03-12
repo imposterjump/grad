@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Define the schema
 const userSchema = new mongoose.Schema({
@@ -10,10 +10,10 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true }, // Hashed password
     role: { type: String, enum: ["patient", "admin"], default: "patient" },
     created_at: { type: Date, default: Date.now },
-    ai_sessions_id: { type: [mongoose.Schema.Types.ObjectId], ref: "AISession", default: [] }, // References therapy sessions
+    ai_sessions_id: { type: [mongoose.Schema.Types.ObjectId], ref: "TherapySession", default: [] }, // References therapy sessions
     is_severe_case: { type: Boolean, default: false }
 });
 
 // Create and export model
 const User = mongoose.model("User", userSchema);
-module.exports = User;
+export default User;
