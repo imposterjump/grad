@@ -1,0 +1,37 @@
+{
+    "metadata": {
+        "duration": 1.91
+    },
+    "mouthCues": [
+        {
+            "start": 0,
+            "end": 0.32,
+            "value": "hˈeɪ"
+        },
+        {
+            "start": 0.32,
+            "end": 0.64,
+            "value": "dˈiə\r\n"
+        },
+        {
+            "start": 0.64,
+            "end": 0.95,
+            "value": "hˌaʊ"
+        },
+        {
+            "start": 0.95,
+            "end": 1.27,
+            "value": "wɒz"
+        },
+        {
+            "start": 1.27,
+            "end": 1.59,
+            "value": "jɔː"
+        },
+        {
+            "start": 1.59,
+            "end": 1.91,
+            "value": "dˈeɪ"
+        }
+    ]
+}
