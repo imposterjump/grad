@@ -22,18 +22,18 @@ const ESPEAK_PATH = "C:/eSpeak/command_line/espeak.exe";
 process.env.PATH += ";C:/eSpeak/command_line/";
 
 // Function to get phonemes from eSpeak
-const getPhonemes = (sentence) => {
-    try {
-        // Explicitly use the full eSpeak path
-        const output = execSync(`"${ESPEAK_PATH}" -q --ipa "${sentence}"`, { shell: true }).toString().trim();
 
-        return output.split(" ");
+
+function getPhonemes(sentence) {
+    try {
+        const output = execSync(`espeak -q --ipa "${sentence}"`, { encoding: "utf-8", shell: true }).trim();
+        console.log("Raw phoneme output:", output); // Debugging log
+        return output.replace(/\r?\n/g, " ").split(/\s+/); // Ensures it's a single-line array
     } catch (error) {
         console.error("Error generating phonemes:", error);
         return [];
     }
-};
-
+}
 // Function to generate mouth cues with timestamps
 const generateMouthCues = (sentence, duration) => {
     const phonemes = getPhonemes(sentence);
