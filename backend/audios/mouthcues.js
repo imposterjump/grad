@@ -79,16 +79,20 @@ const phonemeToViseme = {
     "i": "C",
     "ɪ": "C", // Smile (like "ee")
     "ʊ": "B",
-    "u": "B", // Rounded lips
+    "u": "B",
+    "uː": "B", // Rounded lips (fixing issue)
     "ʌ": "D",
     "ɑ": "D",
-    "ɒ": "D", // Open mouth vowels
+    "ɒ": "D",
+    "ɐ": "D", // Open mouth vowels (fixing issue)
     "ɔ": "F",
     "aʊ": "F", // "aw" sounds
     "j": "C",
     "w": "C", // Semi-vowels
+    "ə": "B", // Schwa neutral vowel (fixing issue)
     "ŋ": "X" // Nasal closure
 };
+
 
 // **4️⃣ Function to Map Phonemes to Visemes**
 function mapPhonemesToVisemes(phonemes) {
@@ -133,7 +137,7 @@ async function generateLipSyncJSON(sentence, audioPath, savePath) {
 }
 
 // **🚀 Run Example**
-const sentence = "Hey dear, how was your day";
+const sentence = "This is a great test";
 const audioPath = "C:/new grad project (farid version)/grad/backend/audios/intro_0.wav";
 const savePath = "C:/new grad project (farid version)/grad/backend/audios/lipsync_intro_1.json";
 
