@@ -1,99 +1,140 @@
-import fs from "fs-extra";
-import path from "path";
-import { fileURLToPath } from "url";
-import { execSync } from "child_process";
-import ffmpeg from "fluent-ffmpeg";
-import ffmpegStatic from "ffmpeg-static";
+import fs from 'fs';
+import { execSync } from 'child_process';
+import ffmpeg from 'fluent-ffmpeg';
 
-// Ensure ffmpeg is set
-ffmpeg.setFfmpegPath(ffmpegStatic);
+// Path to eSpeak executable
+const ESPEAK_PATH = "C:/espeak/command_line/espeak.exe";
 
-// Get the current directory path
-const __filename = fileURLToPath(
-    import.meta.url);
-const __dirname = path.dirname(__filename);
+// **1️⃣ Function to Extract Audio Duration**
+function getAudioDuration(audioPath) {
+    return new Promise((resolve, reject) => {
+        ffmpeg.ffprobe(audioPath, (err, metadata) => {
+            if (err) {
+                console.error("❌ Error getting audio duration:", err);
+                reject(err);
+            } else {
+                const duration = metadata.format.duration;
+                console.log(`🎵 Audio Duration: ${duration.toFixed(2)} seconds`);
+                resolve(duration);
+            }
+        });
+    });
+}
 
-// Force the script to use the absolute path of eSpeak (Modify if needed)
-const ESPEAK_PATH = "C:/eSpeak/command_line/espeak.exe";
-
-
-
-// Ensure eSpeak is available in PATH
-process.env.PATH += ";C:/eSpeak/command_line/";
-
-// Function to get phonemes from eSpeak
-
-
+// **2️⃣ Function to Get Cleaned Phonemes**
 function getPhonemes(sentence) {
     try {
-        const output = execSync(`espeak -q --ipa "${sentence}"`, { encoding: "utf-8", shell: true }).trim();
-        console.log("Raw phoneme output:", output); // Debugging log
-        return output.replace(/\r?\n/g, " ").split(/\s+/); // Ensures it's a single-line array
+        const command = `${ESPEAK_PATH} -q --ipa=3 "${sentence}"`;
+        let output = execSync(command, { encoding: 'utf-8' }).trim();
+
+        console.log(`🔵 Raw Phoneme Output:`, output);
+
+        // **🔄 Step 1: Cleanup output (remove weird symbols)**
+        let phonemeArray = output
+            .replace(/[_ˈˌ]/g, " ") // Remove underscores & stress markers
+            .replace(/\s+/g, " ") // Remove extra spaces
+            .trim()
+            .split(" "); // Properly split phonemes
+
+        console.log("📌 Cleaned Phoneme Array:", phonemeArray);
+        return phonemeArray;
     } catch (error) {
-        console.error("Error generating phonemes:", error);
+        console.error("❌ Error generating phonemes:", error);
         return [];
     }
 }
-// Function to generate mouth cues with timestamps
-const generateMouthCues = (sentence, duration) => {
-    const phonemes = getPhonemes(sentence);
-    if (phonemes.length === 0) {
-        console.error("No phonemes generated.");
-        return [];
-    }
 
-    // Split time equally for phonemes
-    const numPhonemes = phonemes.length;
-    const frameDuration = duration / numPhonemes;
-
-    return phonemes.map((phoneme, i) => ({
-        start: parseFloat((i * frameDuration).toFixed(2)),
-        end: parseFloat(((i + 1) * frameDuration).toFixed(2)),
-        value: phoneme
-    }));
+// **3️⃣ Generalized Phoneme-to-Viseme Mapping**
+const phonemeToViseme = {
+    "p": "B",
+    "b": "B",
+    "m": "B", // Closed lips
+    "f": "E",
+    "v": "E", // Top teeth on bottom lip
+    "θ": "C",
+    "ð": "C", // Tongue between teeth
+    "t": "D",
+    "d": "D",
+    "s": "D",
+    "z": "D",
+    "n": "D",
+    "l": "D",
+    "r": "D", // Tongue touches roof
+    "ʃ": "F",
+    "ʒ": "F",
+    "tʃ": "F",
+    "dʒ": "F", // "sh", "ch" sounds
+    "k": "G",
+    "g": "G",
+    "ŋ": "G", // Back of tongue lifts
+    "h": "X", // Neutral / silent
+    "eɪ": "A",
+    "aɪ": "A",
+    "ɔɪ": "A",
+    "oʊ": "A",
+    "ju": "A", // "ey", "ai", "oy"
+    "æ": "B",
+    "ɛ": "B",
+    "e": "B", // Mid-open mouth
+    "i": "C",
+    "ɪ": "C", // Smile (like "ee")
+    "ʊ": "B",
+    "u": "B", // Rounded lips
+    "ʌ": "D",
+    "ɑ": "D",
+    "ɒ": "D", // Open mouth vowels
+    "ɔ": "F",
+    "aʊ": "F", // "aw" sounds
+    "j": "C",
+    "w": "C", // Semi-vowels
+    "ŋ": "X" // Nasal closure
 };
 
-// Function to extract audio duration using FFmpeg
-const getAudioDuration = (audioPath) => {
+// **4️⃣ Function to Map Phonemes to Visemes**
+function mapPhonemesToVisemes(phonemes) {
+    return phonemes.map(phoneme => {
+        let mappedValue = phonemeToViseme[phoneme] || "X"; // Default to "X"
+        console.log(`🔄 Mapping: "${phoneme}" → "${mappedValue}"`);
+        return { value: mappedValue };
+    });
+}
+
+// **5️⃣ Function to Generate LipSync JSON**
+async function generateLipSyncJSON(sentence, audioPath, savePath) {
     try {
-        const output = execSync(`ffmpeg -i "${audioPath}" 2>&1 | find "Duration"`).toString();
-        const match = output.match(/Duration: (\d+):(\d+):([\d.]+)/);
-        if (match) {
-            const hours = parseInt(match[1], 10);
-            const minutes = parseInt(match[2], 10);
-            const seconds = parseFloat(match[3]);
-            return hours * 3600 + minutes * 60 + seconds;
+        const duration = await getAudioDuration(audioPath);
+        const rawPhonemes = getPhonemes(sentence);
+        const mappedMouthCues = mapPhonemesToVisemes(rawPhonemes);
+
+        if (mappedMouthCues.length === 0) {
+            console.error("❌ No mouth cues generated. Exiting.");
+            return;
         }
-        throw new Error("Could not extract duration.");
+
+        const interval = duration / mappedMouthCues.length;
+
+        // **Generate Timestamped Mouth Cues**
+        const mouthCues = mappedMouthCues.map((cue, index) => ({
+            start: parseFloat((index * interval).toFixed(2)),
+            end: parseFloat(((index + 1) * interval).toFixed(2)),
+            value: cue.value
+        }));
+
+        const data = {
+            metadata: { duration: parseFloat(duration.toFixed(2)) },
+            mouthCues
+        };
+
+        fs.writeFileSync(savePath, JSON.stringify(data, null, 4));
+        console.log(`✅ LipSync JSON saved to ${savePath}`);
     } catch (error) {
-        console.error("Error extracting audio duration:", error);
-        return 1.0; // Default fallback duration
+        console.error("❌ Error in LipSync Generation:", error);
     }
-};
+}
 
-// Function to generate the lip-sync JSON file
-const generateLipSyncJSON = (sentence, audioPath, savePath) => {
-    const duration = getAudioDuration(audioPath);
-    const mouthCues = generateMouthCues(sentence, duration);
-
-    if (mouthCues.length === 0) {
-        console.error("No mouth cues generated. Exiting.");
-        return;
-    }
-
-    const data = {
-        metadata: { duration: parseFloat(duration.toFixed(2)) },
-        mouthCues: mouthCues
-    };
-
-    fs.writeJsonSync(savePath, data, { spaces: 4 });
-    console.log(`LipSync JSON saved to ${savePath}`);
-};
-
-// Example Usage
+// **🚀 Run Example**
 const sentence = "Hey dear, how was your day";
 const audioPath = "C:/new grad project (farid version)/grad/backend/audios/intro_0.wav";
 const savePath = "C:/new grad project (farid version)/grad/backend/audios/lipsync_intro_1.json";
 
-// Run the script
 generateLipSyncJSON(sentence, audioPath, savePath);
